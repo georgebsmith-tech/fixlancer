@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs') %>
+    <script defer src="../../js/notice.js"></script>
+    <link rel="stylesheet" href="../../css/styles.css">
+
+
+</head>
+
+<body>
+    <%- include('./partials/header.ejs') %>
+    <main class="main">
+
+        <h1>Finance</h1>
+        <div class="grid-2-21">
+            <section class="withdrawal-summary">
+                <header> Notifications</header>
+                <%notices.forEach(notice=>{ %>
+                <%if(notice.type==="offer"){ %>
+
+                <div class="notifications">
+                    <a href="/dashboard/<%=notice.content.slug%>" class="<%= notice.read?undefined:'unread-notice'%>">
+                        <div>A new offer price of <strong class="bold">₦<%=notice.content.price%></strong> by
+                            <strong class="bold"><%=notice.content.username%> </strong>
+                            has
+                            been placed on your
+                            job request: <strong class="bold">
+                                <%=notice.content.title%></strong>. Click here to
+                            view.</div>
+                        <div class="flex-end font12">
+                            <em>
+                                <%=notice.createdAt.toDateString()%>
+                            </em>
+
+                        </div>
+
+
+                    </a>
+                </div>
+                <%}else if(notice.type==="new order"){ %>
+                <div class="notifications">
+                    <a href="#" class="<%= notice.read?'':'unread-notice'%>">
+                        <div>
+                            Thanks for your order! Click
+                            here to
+                            provide the necessary details to the seller (
+                            <strong class="bold"><%=notice.content.from %> </strong>) so that your order can start.
+                        </div>
+                        <div class="flex-end font12">
+                            <em>
+                                <%=getDate(notice.createdAt)%>
+                            </em>
+
+                        </div>
+
+
+                    </a>
+                </div>
+                <%}else if(notice.type==="milestone"){ %>
+                    <div class="notifications">
+                        <a href="/dashboard/order-chat?oid=<%=notice.content.order_id%>" class="<%= notice.read?'':'unread-notice'%>">
+                            <div>
+                                ₦<%=notice.content.amount%>  credited for milestone released for the order:
+                                <strong class="bold"> <%=notice.content.order_id%></strong>
+                            </div>
+                            <div class="flex-end font12">
+                                <em>
+                                    <%=getDate(notice.createdAt)%>
+                                </em>
+    
+                            </div>
+    
+    
+                        </a>
+                    </div>
+
+                <%}else if(notice.type==="new sale"){ %>
+                <div class="notifications">
+                    <a href="#" class="<%= notice.read?'':'unread-notice'%>">
+                        <div>
+                            Good News! You have a new order from
+                            <strong class="bold"><%=notice.content.from %>.</strong>
+                        </div>
+                        <div class="flex-end font12">
+                            <em>
+                                <%=getDate(notice.createdAt)%>
+                            </em>
+
+                        </div>
+
+
+                    </a>
+                </div>
+
+
+                <%}%>
+            <%})%>
+
+                <!-- <div class="notifications">
+                <a href="#">
+                    A new offer price of <strong>#100000</strong> by Smith has been placed on your job request: <strong>
+                        Web development for an Ecommerce site</strong>. Click here to view.<span>29 jul 20</span>
+                    <em></em>
+                </a>
+            </div>
+            <div class="notifications">
+                <a href="#">
+                    A new offer price of <strong>#100000</strong> by Smith has been placed on your job request: <strong>
+                        Web development for an Ecommerce site</strong>. Click here to view.<span>29 jul 20</span>
+                    <em></em>
+                </a>
+            </div>
+            <div class="notifications">
+                <a href="#">
+                    A new offer price of <strong>#100000</strong> by Smith has been placed on your job request: <strong>
+                        Web development for an Ecommerce site</strong>. Click here to view.<span>29 jul 20</span>
+                    <em></em>
+                </a>
+            </div> -->
+            </section>
+            <section class="finance-controlers">
+                <div>
+                    <a href="/dashboard/finance/withdraw" class="button" style="font-size:1.6rem">Request Withdrwal</a>
+                </div>
+                <div>
+                    <a href="/dashboard/finance/transactions" class="trans-hist button"
+                        style="font-size:1.6rem">Transaction
+                        History</a>
+                </div>
+            </section>
+        </div>
+
+    </main>
+    <%- include('./partials/footer.ejs') %>
+</body>
+
+</html>

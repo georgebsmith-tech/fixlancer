@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs') %>
+    <script defer src="../../js/login.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="logo-wrapper-login">
+            <img src="../../images/logo.png" alt="">
+
+        </div>
+        <div class="center-text padd10-top">
+            <h1 class="font22">
+                Login to Fixlancer
+            </h1>
+        </div>
+
+    </header>
+    <main class="bg-white">
+
+        <div class="login-wrapper margin10-top">
+            <div class="card-shadow border-smooth padd20">
+                <div class="font16 center-text text-danger hide login-error">
+                    <i class="fa fa-exclamation-circle text-danger"></i> Invalid Username or Password
+                </div>
+                <div class="font16">
+                    <div class="padd30-top">
+                        <input type="
+                        " placeholder="Username or Email" class="padd10 full-width font16 border4-smooth no-outline"
+                            id=username>
+                    </div>
+                    <div class="padd20-top">
+                        <input type="password" placeholder="Password"
+                            class="padd10 full-width font16 border4-smooth no-outline" id="password">
+                    </div>
+                    <div class="margin20-top">
+                        <div class="lds-ring hide">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <button id="login-btn" class="padd10 full-width font16 border4-smooth no-outline text-white"
+                            style="background: #47739e;">
+
+                            Login
+
+                        </button>
+                    </div>
+                    <div class="center-text margin30-top font13">
+
+
+                        <div class="margin20-bottom">
+                            <input type="checkbox" class="fon12" checked>
+                            <span>Stay logged in</span>
+                        </div>
+                        <div class="margin20-bottom">
+                            Forgot <a href="/reset-password" class="text-link-with-hover">Password?</a>
+                        </div>
+                        <div class="margin20-bottom">
+                            Don't have an account? <a href="/register" class="text-link-with-hover">Register Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="margin20-top center-text">
+            <span class="font14">
+                Go back to
+            </span><a href="/" class="text-link-with-hover font13">Home</a>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

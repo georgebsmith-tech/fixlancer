@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./partials/head.ejs")%>
+    <script defer src="../../js/chat-list.js"></script>
+</head>
+
+<body>
+    <%- include("./partials/header.ejs")%>
+
+    <main class="main">
+        <section class="font16 bg-white border-smooth">
+            <div class="padd30 border-bottom">All conversations</div>
+            <ul>
+                <% for(let conversation of theConversations ){ %>
+
+                <li class="font15">
+                    <%if(conversation.from===loggedUser){ %>
+                    <input type="hidden" class="hidden-receiver-colors" value="<%= conversation.userColor %>"
+                        data-username="<%= conversation.to %>">
+                    <a href="/dashboard/inbox?with=<%=conversation.to %>" class="block inbox-summary border-bottom">
+                        <%}else{%>
+                        <input type="hidden" class="hidden-receiver-colors" value="<%= conversation.userColor %>"
+                            data-username="<%= conversation.from %>">
+                        <a href="/dashboard/inbox?with=<%=conversation.from %>"
+                            class="block inbox-summary border-bottom">
+                            <%}%>
+                    <div class="grid">
+                        <div>
+                            <%if(conversation.from===loggedUser){ %>
+                            <span class="user-avatar"><%= conversation.to[0].toUpperCase() %></span>
+                            <%}else{%>
+                            <span class="user-avatar"><%= conversation.from[0].toUpperCase() %></span>
+                            <%}%>
+                            </div>
+                            <div>
+                                <%if(conversation.from===loggedUser){ %>
+                            <span class="bold block desktop"><%= conversation.to %></span>
+                            <%}else{%>
+                            <span class="bold block desktop"><%= conversation.from %></span>
+                            <%}%>
+                                
+                                <% if(conversation.from===loggedUser){ %>
+                            <span class="who bold">Me:</span>
+                            <%}else{%>
+                            <span class="who bold"><%= conversation.from %>:</span>
+                            <%}%>
+                                <span><%= conversation.message%></span>
+                            </div>
+                            </div>
+                            <div class="flex-end"><%= conversation.createdAt %></div>
+                        </a>
+                </li>
+                <%}%>
+            </ul>
+        </section>
+    </main>
+
+
+
+    <%- include("./partials/footer.ejs")%>
+</body>
+
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+    <%- include('./partials/head.ejs') %>
+    <script defer src="../../js/request.js"></script>
+
+</head>
+
+<body">
+
+    <input type="hidden" value="<%=request.slug%>" id="hidden-request-slug">
+    <input type="hidden" value="<%=request.username%>" id="hidden-request-owner">
+    <div class="message-modal hide"
+        style="width: 100vw;height: 100vh; background: rgba(0,0,0,0.5); position: fixed;left: 0;top: 0;z-index: 5;overflow: hidden;">
+        <div class="flex-center" style="height: 100vh;padding: 15px;width: 100vw;box-sizing: border-box;">
+            <div style="max-width: 600px; background: white;" class="border-smooth">
+                <div class="bg-heading padd30 flex-between">
+                    <h2>
+                        <i class="far fa-comments"></i>
+                        <span class="bold">Contact <span class="bold seller"></span></span>
+
+                    </h2>
+                    <div class="font16">
+                        <a href="#" style="background: #415478; padding: 6px 12px;border-radius: 6px;"
+                            class="close-message">
+                            <i class="fa fa-angle-double-left text-white font15"></i>
+                            <span class="text-white font14">back</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="padd20">
+                    <div>
+                        <ul class="font13">
+                            <li style="margin-bottom: 8px;line-height: 1.4;">
+                                <i class="fa fa-exclamation-circle"></i>
+                                When you place order on this platform your funds are held on escrow and not sent to the
+                                seller
+
+                            </li>
+                            <li>
+                                <i class="fa fa-exclamation-circle"></i>
+                                Your job is also done to your satisfaction or 100% refund
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="margin10-top">
+                            <fieldset>
+                                <textarea name="" id="message" cols="30" rows="5"
+                                    placeholder="Type your message..."></textarea>
+                            </fieldset>
+                        </div>
+                        <div class="flex-end">
+                            <button class="bg-green text-white border-green font15 send"
+                                style="padding: 8px 15px;outline: none; border-radius: 6px;">Send</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <%- include('./partials/header.ejs') %>
+    <main class="main a-request">
+        <%if(request.status==="awarded"){ %>
+
+        <div class="font16 request-status-alert margin10-top">
+            <i class="fa fa-check-circle text-green"></i> <span>Job has been awarded</span>
+        </div>
+        <%}%>
+        <%if(request.status==="closed"){ %>
+
+        <div class="font16 request-status-alert margin10-top" style="border:1px solid #fe1b1b;">
+            <i class="fa fa-exclamation-triangle text-green" style="color: #fe1b1b;"></i> <span>Job is closed.</span>
+        </div>
+        <%}%>
+        <%if(request.status==="Open" && loggedUser===request.username){ %>
+
+
+        <div>
+            <button class="close-request"> Mark as closed</button>
+        </div>
+        <div class="font16 request-status-alert margin10-top hide closed-alert" style="border:1px solid #fe1b1b;">
+            <i class="fa fa-exclamation-triangle text-green" style="color: #fe1b1b;"></i> <span>Job is closed.</span>
+        </div>
+        <%}%>
+        <div class="flex-between chat-send-notice font14 bg-green hide">
+            <div class="text-white">
+                Your message to <span id="sent-seller" class="bold"></span> has been sent.You can check out other offers.
+            </div>
+            <a href="/dashboard/inbox" class="font14 view-in-btn block link-hover" style="white-space: nowrap;">View in inbox</a>
+        </div>
+
+        <div class="margin10-top border-smooth card-shadow">
+            <h1 class="request-title bg-green2">
+                <%= request.title %>
+        </h1>
+        <div class="flex-between font16 the-request-meta border-bottom bg-white">
+            <div>
+                <i class="fas fa-clock bold"></i>
+                <span class="bold"> <%= request.delivery %>days</span></div>
+            <div>
+                <i class="fa fa-print bold"></i>
+                <span class="bold number-of-offers"> <%= request.offers.length %> offers</span>
+            </div>
+            <div>
+                <span class="text-green bold">₦<%= request.price %></span>
+            </div>
+
+        </div>
+        <div class="request-description font16 bg-white">
+            <%= request.description %>
+
+        </div>
+        </div>
+        <div class="margin20-top font14">
+            <div>
+                Category: <%= request.category %>
+            </div>
+            <div class="">
+                by: <a href="#" class="text-link-with-hover"> <%= request.username %></a> - <i class="fas fa-clock"
+                    style="font-size:1.4rem;"></i>
+                <span> <%= request.createdAt.toDateString() %></span>
+
+
+            </div>
+        </div>
+
+        <div class="card-shadow margin25-top padd20-bottom border-smooth bg-white">
+            <h2 class="fon16 padd-head border-bottom" style="background: #f8f9fc;">
+                <i class="fa fa-print bold"></i>
+                <span><%= loggedUser===request.username?"Offers":"Offer"%></span>
+
+            </h2>
+            <%if(request.offers.length===0 && loggedUser===request.username){%>
+            <div class="font16 padd10">No offer placed yet.</div>
+
+            <%}else if(request.offers.length!==0 && loggedUser===request.username){%>
+            <%request.offers.forEach(offer=>{%>
+            <div class="font16 card-grid border-bottom">
+                <div>
+                    <a href="#" class="block">
+                        <img src="<%=offer.image_url%>" alt="">
+                    </a>
+                </div>
+                <div>
+                    <div class="flex margin10-top">
+                        <span class="user-avatar"><%=offer.username[0].toUpperCase()%></span>
+                        <a href="#" class="text-link-with-hover font18"
+                            style="margin-left: 4px;"><%=offer.username%></a>
+                    </div>
+                    <div class="margin25-top" style="line-height:1.5;">
+                        I<%=offer.description %>
+                    </div>
+                    <div class="margin20-top font25 bold">
+                        ₦<%=offer.price%>
+                    </div>
+                    <div class="flex margin10-top">
+                        <div class="margin40-right">
+                            <i class="fa fa-star "></i>
+                            <span class="font13 text-yellow">3.4 </span>(4)
+                        </div>
+                        <div>
+                            <i class="fas fa-clock text-green" style="font-size: 1.3rem;"></i>
+                            <span class="font13"><%=offer.delivery%> days</span>
+                        </div>
+                    </div>
+                    <div class="flex-between margin20-top">
+                        <div>
+                            <button class="bg-white message-seller button-white" data-seller="<%=offer.username%>">
+
+                                <span class="font15">Message</span>
+                            </button>
+
+                        </div>
+                        <div>
+
+                            <a href="/order-fix/<%= offer.slug %>?job_id=<%=request.job_id%>"
+                                class="font15 button-orange" data-slug="<%=offer.slug%>">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%})%>
+            <%}else if( request.status==="awarded"){ %>
+
+            <div class="font16" style="padding:30px 10px 0px 10px;">
+                <div style="padding: 15px 10px;background: #FCFAE4;" class="border-smooth">
+                    <i class="fas fa-exclamation-triangle" style="color: #fe1b1b;"></i>
+                    You cannot place a new offer as job is already awarded
+                </div>
+            </div>
+            <%}else if( request.status==="closed"){ %>
+
+            <div class="font16" style="padding:30px 10px 0px 10px;">
+                <div style="padding: 15px 10px;background: #FCFAE4;" class="border-smooth">
+                    <i class="fas fa-exclamation-triangle" style="color: #fe1b1b;"></i>
+                    You cannot place a new offer as job is closed.
+                </div>
+            </div>
+
+            <%}else if(request.offers.find(offer=>offer.username===loggedUser) ){%>
+            <%request.offers.filter(offer=>offer.username===loggedUser).forEach(myOffer=>{%>
+            <div class="font16 card-grid border-bottom">
+                <div>
+                    <a href="#" class="block">
+                        <img src="<%=myOffer.image_url%>" alt="">
+                    </a>
+                </div>
+                <div>
+                    <div class="flex margin10-top">
+                        <span class="user-avatar"><%=myOffer.username[0].toUpperCase()%></span>
+                        <a href="#" class="text-link-with-hover font18"
+                            style="margin-left: 4px;"><%=myOffer.username%></a>
+                    </div>
+                    <div class="margin25-top" style="line-height:1.5;">
+                        I<%=myOffer.description %>
+                    </div>
+                    <div class="margin20-top font25 bold">
+                        ₦<%=myOffer.price%>
+                    </div>
+                    <div class="flex margin10-top">
+                        <div class="margin40-right">
+                            <i class="fa fa-star "></i>
+                            <span class="font13 text-yellow">3.4(4)</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-clock text-green" style="font-size: 1.3rem;"></i>
+                            <span class="font13"><%=myOffer.delivery%> days</span>
+                        </div>
+                    </div>
+                    <div class="margin20-top">
+                        <div>
+                            <a href="#" class="font15 button-green block">Edit Offer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <%})%>
+
+            <%}else if(request.status==="Open") {%>
+            <div class="holder">
+                <div class="bg-white " style="padding:20px 10px 10px 10px;">
+                    <div>
+                        <fieldset>
+                            <select name="title" id="title" class="bg-white">
+                                <%fixes.forEach(fix=>{ %>
+                                <option value="<%= fix.title %>" data-titleSlug="<%= fix.titleSlug %>"
+                                    data-imageUrl="<%= fix.images_url[0] %>"><%= fix.title %></option>
+                                <%})%>
+
+                            </select>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <textarea name="description" id="description" cols="30" rows="6"
+                                placeholder="Enter your proposals with samples and why they should chose you..."></textarea>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <select name="price" id="price" class="bg-white">
+                                <option value="">Price</option>
+                                <%for(let price of [1000,2000,3000,5000,10000,20000]){ %>
+                                <option value="<%=price%>">₦<%=price%></option>
+                                <%} %>
+                            </select>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <select name="delivery" id="delivery" class="bg-white">
+                                <option value="">Delivery Days</option>
+                                <%for(let days of [1,2,3,5,10,20]){ %>
+                                <option value="<%=days%>"><%=days%> days</option>
+                                <%} %>
+                            </select>
+                        </fieldset>
+                    </div>
+                    <div class="font16">
+
+                        <input type="checkbox" id="accept-terms">
+                        <span>
+                            I accept i've read the project and can complete
+                        </span>
+
+                    </div>
+                    <div class="margin30-top">
+                        <fieldset>
+                            <button class="place-offer">Place Offer</button>
+                        </fieldset>
+                    </div>
+                </div>
+                <input type="hidden" value="<%= request._id%>" id="request-id">
+            </div>
+
+            <%}%>
+    </div>
+                
+
+
+    </main>
+    <%- include('./partials/footer.ejs') %>
+            </body>
+
+</html>

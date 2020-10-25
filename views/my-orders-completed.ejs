@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs') %>
+
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+
+<body>
+    <%- include('./partials/header.ejs') %>
+    <main class="main">
+        <section>
+            <h1>My Orders</h1>
+            <section class="orders-and-sales">
+
+                <header class="sales-and-orders-headings">
+                    <div><a href="/dashboard/my-orders">Ongoing(<span><%=orderCounts.ongoing%></span>)</a>
+                    </div>
+                    <div><a href="/dashboard/my-orders/delivered">Delivered(<span><%=orderCounts.delivered%></span>)</a>
+                    </div>
+                    <div><a href="#" class="active">Completed(<span><%=orderCounts.completed%></span>)</a>
+                    </div>
+                    <div><a href="/dashboard/my-orders/cancelled">Cancelled(<span><%=orderCounts.cancelled%></span>)</a>
+                    </div>
+                </header>
+
+                <section class="bg-white desktop">
+                    <div class="grid-table padd10 border-bottom">
+                        <h3>SELLER</h3>
+                        <h3>FIX</h3>
+                        <h3>DELIVERY</h3>
+                        <h3>AMOUNT</h3>
+                    </div>
+                    <%orders.forEach(order=>{ %>
+
+                    <%-renderSalesAndOrderDesktop(order)%>
+
+                    <%})%>
+                    <%if(orders.length===0){%>
+                    <div class="padd30 center-text font16 bg-white">
+                        <div class="padd30 bold">
+                            No Orders
+                        </div>
+
+                    </div>
+                    <%}%>
+                    
+                </section>
+                <script>
+                    const userColors = document.querySelectorAll(" .user-avatar"); userColors.forEach(user => {
+                        user.style.backgroundColor = user.dataset.color
+                        user.style.marginRight = "8px"
+                    });
+                </script>
+                <%if(orders.length===0){%>
+                    <div class="padd30 center-text mobile font16 bg-white">
+                        <div class="padd30 bold">
+                            No Orders
+                        </div>
+
+                    </div>
+                    <%}%>
+                <div class="mobile grid-responsive-max3">
+                   
+                    <%orders.forEach(order=>{ %>
+
+                    <%-renderSalesAndOrderMobile(order) %>
+
+
+                    <%})%>
+                    </div>
+
+                </section>
+
+            </section>
+    </main>
+    <%- include('./partials/footer.ejs') %>
+</body>
+
+</html>

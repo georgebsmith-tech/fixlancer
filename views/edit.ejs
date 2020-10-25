@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-include('./partials/head.ejs')%>
+    <script defer src="../../js/edit.js"></script>
+    <style>
+        html{
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+    <%-include('./partials/header.ejs')%>
+
+    <main class="main" id="top">
+        <div>
+            <h1>Edit Personal Info</h1>
+        </div>
+        
+
+        <div class="details ">
+            <div class="font14 padd10 profile-updated hide" style="margin-bottom: -30px; margin-top: 20px; background: #1cc88a;border-radius: 5px;">
+                <span class="text-white">Your profile has been updated. </span> <a href="/dashboard/profile" class="text-link-with-hover">View your profile.</a>
+            </div>
+            <div class="grid-desktop-2">
+
+            
+            <div class="personal border-smooth bg-white margin30-top">
+                <div class="bg-heading">
+                    <h2 class="padd20 bold">Personal Details</h2>
+                </div>
+                <form action="" class="padd20 ">
+
+                    <fieldset class="margin10-bottom">
+                        <label for=" username" class="font12 margin5-bottom block">USERNAME</label>
+                       
+                            <input type="text" name="username" size="40" id="username" placeholder="Username" value="<%=data.username%>" >
+
+                        <small class="font10 margin-minus10-top block font11 ">* You can change your username 3 times
+                            maximum.</small>
+                    </fieldset>
+                    <fieldset>
+                        <label for=" username" class="font12 margin5-bottom block">FULL NAME</label>
+                        <%if(data.fullName===""){%>
+                            <input type="text" placeholder="Full Name" size="40" id="full-name">
+                            <%}else{%>
+                                <input type="text" placeholder="Full Name" size="40" id="full-name" value="<%=data.fullName%>">
+                                <%}%>
+                       
+                    </fieldset>
+                    <fieldset>
+                        <label for="username" class="font12 margin5-bottom block">CITY</label>
+                        <input type="text" size="40" id="city" placeholder="City" value="<%=data.city===''?'City':data.city%>">
+                    </fieldset>
+                    <fieldset class="margin10-bottom">
+                        <label for="username" class="font12 margin5-bottom block">PHONE</label>
+                        <input type="text" name="" id="phone" size="40" placeholder="Phone" value="<%=data.phone===''?'Phone':data.phone%>">
+                        <small class="font10 margin-minus10-top block font11 text-red">* For sms notifications</small>
+                    </fieldset>
+                    <fieldset>
+                        <label for="username" class="font12 margin5-bottom block">BIO</label>
+                        <%if(data.fullName===""){%>
+                        <textarea name="area" id="bio" cols="30" rows="5" placeholder="Bio"></textarea>
+                        <%}else{%>
+
+                            <textarea name="area" id="bio" cols="30" rows="5" placeholder="Bio"><%=data.bio.trim()%>
+                            </textarea>
+                            <%}%>
+                        <small class="font11 margin-minus10-top block text-red">* Posting of contact informations may
+                            result in
+                            permanent blocking
+                            of
+                            your account</small>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="other border-smooth bg-white margin30-top" style="height: fit-content;">
+                <div class="p-head bg-heading">
+                    <h2 class="padd20 bold">Other Details</h2>
+                </div>
+                <form action="" class="padd20">
+                    <label for="avatar" class="font12 block margin5-bottom">PROFILE PICTURE</label><br>
+                    <div >
+                        <input
+                            style="cursor:pointer !important;font-size:14px;float:left;width:100%;margin-bottom:10px; border-style: none; "
+                            type="file" name="photo" id="photo">
+                    </div>
+                    <div class="user-photo-wrapper">
+                    <%if(data.imageURL!==""){%>
+                        
+                            
+                              <img src="<%=data.imageURL%>" alt="" class="user-photo">  
+                            
+
+                    
+
+                    <%}%>
+                </div>
+
+                    <input type="hidden" id="old-phone" value="<%=data.phone%>">
+                    <div class="font16 margin20-top">
+                        <i class="fa fa-key" aria-hidden="true"></i>
+                        <span>
+                            Change Password
+                        </span>
+                    </div>
+                    <fieldset class="margin10-top">
+                    <input type="password" name="password" id="password" placeholder="New Password">
+                  </fieldset>
+                  <fieldset>
+                    <input type="password" name="re_password" placeholder="Repeat New Password" id="confirm-password">
+                </fieldset>
+                    <h3 class="font15 margin10-bottom margin30-top" >
+                        <i class="fa fa-university"></i> Bank Transfer Details</h3>
+                        <fieldset>
+                        <%if(bank.accName===""){%>
+                            <input type="text" name="account name" id="acct-name" placeholder="Account Name">
+                            <%}else{%>
+                                <input type="text" name="account name" id="acct-name" value="<%=bank.accName%>">
+                            <%}%>    
+                    
+                </fieldset>
+                   <fieldset>
+                    <%if(bank.accNumber===""){%>
+                    <input type="number" name="account_num" id="acct-number" placeholder="Account No.">
+                    <%}else{%>
+                        <input type="number" name="account_num" id="acct-number" value="<%=bank.accNumber%>">
+                        <%}%>  
+                </fieldset>
+                <fieldset>
+                    <%if(bank.bankName===""){%>
+                    <input type="text" placeholder="Name of Bank"  id="bank-name">
+
+                    <%}else{%>
+                        <input type="text"   id="bank-name" value="<%=bank.bankName%>">
+
+                        <%}%>  
+                </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="grid-desktop-2">
+            <!-- <div class="alert margin30-top bg-white font16 border-smooth">
+                <div class="card-header padd10">
+                    <h2 class="font17 bold bg-heading padd20">
+                        Receive alerts when a new Job Request is posted in these categories</h2>
+                </div>
+                <div class="padd20-left">
+                    <div class="input">
+                        <input type="checkbox" name="digital" id="">
+                        <label for="digital">Digital Marketing</label>
+                    </div>
+                    <div class="input">
+                        <input type="checkbox" name="graphics" id="">
+                        <label for="graphics">Graphics & Design</label>
+                    </div>
+                    <div class="input">
+                        <input type="checkbox" name="music" id="">
+                        <label for="music">Music & Audio</label>
+                    </div>
+                    <div class="input">
+                        <input type="checkbox" name="video" id="">
+                        <label for="video">Video & Animations</label>
+                    </div>
+                    <div class="input">
+                        <input type="checkbox" name="tech" id="">
+                        <label for="tech">Programming & Tech</label>
+                    </div>
+                    <div class="input padd30-bottom">
+                        <input type="checkbox" name="writing" id="">
+                        <label for="writing">Writing</label>
+                    </div>
+                </div>
+            </div> -->
+
+        
+            <div class="card padd20 bg-heading margin10-top border-smooth font16 margin30-top-desktop" style="height: fit-content;" >
+                <input type="checkbox" name="notif" value="1"> Unsubscribe from 'New Job Request' notifications<br><br>
+            </div>
+            </div>
+        </div>
+        <fieldset class="margin30-top">
+        <input type="submit" width="100%" style="background-color: #1cc88a; color: white;" name="" id="save-btn"
+            value="Save">
+        </fieldset>
+    </main>
+    <%-include('./partials/footer.ejs')%>
+</body>
+
+</html>

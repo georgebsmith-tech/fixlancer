@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs') %>
+    <script defer src="../js/my-requests.js"></script>
+
+</head>
+
+<body>
+    <%- include('./partials/header.ejs') %>
+    <main class="main request-page">
+        <% if(notice){ %>
+        <div class="new-post-notice">Your job request has been posted and it is under review. We will notify you when it
+            is approved</div>
+        <% } %>
+
+        <h1>My Job Requests</h1>
+        <section class="requests">
+
+            <!-- for my job request -->
+        </section>
+
+        <section class="recommendations">
+            <h2>Recommended For You</h2>
+            <section class="grid-responsive-6">
+
+                <!-- to insert recommendations -->
+            </section>
+        </section>
+    </main>
+    <%- include('./partials/footer.ejs') %>
+</body>
+
+</html>
