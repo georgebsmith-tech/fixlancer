@@ -81,7 +81,7 @@
                 </div>
                 <div class="flex-start flex-wrap ">
                     <input type="file" id="files"
-                        class="padd10 padd5-top-bottom border-smooth margin5-top margin5-right font12" multiple>
+                        class="padd10 padd5-top-bottom border-smooth margin5-top margin5-right font12" multiple accept=".doc, .docx,.mp4, .fiv, .psd, .ai,.wav,.mpg,.mov,.wmv,.txt,.png,.gif,.jpg,.jpeg,.ppt,.pdf,.xls,.xlsx">
                     <!-- <input type="file" style="width: 200px;"
                         class="padd10 padd5-top-bottom border-smooth margin5-top margin5-right font12">
                     <input type="file" style="width: 200px;"
@@ -388,7 +388,7 @@
                                 <div class="margin10-bottom">
                                     <button class="bg-green no-outline padd10 full-width border5-radius"
                                         id="accept-cancellation"
-                                        style="background-color: #f4f4f5;border:1px solid #f4f4f5"
+                                        style="background-color: hsl(240, 5%, 96%);border:1px solid #f4f4f5"
                                         data-chatid="<%=chat._id%>">Accept</button>
                                 </div>
 
@@ -417,6 +417,137 @@
 
                                 </div>
                             </div>
+
+                            <%}else if(chat.type==="delivery"){%>
+                                <%chat.content.files.forEach((file,index)=>{%>
+
+                                <div class="<%=loggedUser===chat.from?'flex-end':'flex-start'%>">
+
+                                
+                                <div class="bg-white border-smooth padd5 margin10-bottom width80 ">
+
+                                    <div>
+                                        <div class="font12 bold margin<%=index===0?'10':'5'%>-bottom circle padd5 padd10sides bg-dark-grey text-white fit-content">
+                                        ORDER DELIVERED    
+                                        </div>
+                                        <%if(index===0){%>
+                                          
+                                        <div class="font14 margin5-bottom">
+                                            <%=chat.message%>
+                                        </div>
+                                        <%}%>
+                                        <div class="bg-light-grey padd10 border5-radius margin5-bottom relative">
+                                            <%if(file.type.substr(0,5)==="video"){%>
+                                                <div class="font16">
+                                                    <div class="flex-between">
+                                                        <div class="flex">
+                                                            <i class="fa fa-file-video-o font28 margin10-right" aria-hidden="true"></i>
+                                                            <span>
+                                                                <%=file.name%>
+                                                            </span> 
+                                                        </div>
+                                                        <div>
+                                                            <a href="/api/download/<%=file.name%>" class="download-icon-holder">
+                                                                <i class="fa fa-download font16  pointer padd10 download-icon " aria-hidden="true"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <%}else if(file.type.substr(0,4)==="text"){%>
+                                                    <div class="font16">
+                                                        <div class="flex-between">
+                                                            <div class="flex">
+                                                                <i class="fa fa-file-text font28 margin10-right" aria-hidden="true"></i>
+                                                                <span>
+                                                                    <%=file.name%>
+                                                                </span> 
+                                                            </div>
+                                                            <div>
+                                                                <a href="/api/download/<%=file.name%>" class="download-icon-holder">
+                                                                    <i class="fa fa-download font16  pointer padd10 download-icon " aria-hidden="true"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <%}else if(file.type.substr(0,5)==="image"){%>
+                                                    <div class="relative">
+                                             <img src="/uploads/<%=file.name%>" alt="image of <%=file.name%>">
+                                             <a href="/api/download/<%=file.name%>" class="download-icon-holder absolute delivery-download-pix">
+                                                <i class="fa fa-download font16  pointer padd10 download-icon " aria-hidden="true"></i>
+                                            </a>
+                                        </div>
+                                             <!-- <i class="fa fa-file-text" aria-hidden="true"></i> -->
+                                                 <%}else if(file.name.substr(file.name.length-5)===".xlsx"||file.name.substr(file.name.length-4)===".xls"){%>
+                                                    <div class="flex-between">
+                                                        <div class="flex">
+                                                            <i class="fa fa-file-excel-o font28 margin10-right" aria-hidden="true"></i>
+                                                           
+                                                            <span class="font16">
+                                                                <%=file.name%>
+                                                            </span> 
+                                                        </div>
+                                                        <div>
+                                                            <a href="/api/download/<%=file.name%>" class="download-icon-holder">
+                                                                <i class="fa fa-download font16  pointer padd10 download-icon " aria-hidden="true"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <%}else if(file.name.substr(file.name.length-5)===".docx"||file.name.substr(file.name.length-4)===".doc"){%>
+                                                        <div class="flex-between">
+                                                            <div class="flex">
+                                                                <i class="fa fa-file-word-o font28 margin10-right" aria-hidden="true"></i>
+                                                
+                                                               
+                                                                <span class="font16">
+                                                                    <%=file.name%>
+                                                                </span> 
+                                                            </div>
+                                                            <div>
+                                                                <a href="/api/download/<%=file.name%>" class="download-icon-holder">
+                                                                    <i class="fa fa-download font16  pointer padd10 download-icon " aria-hidden="true"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                    <%}%>
+                                                
+                                        </div>
+                                        <div class="flex-between padd10-sides">
+                                            <div class="font15">
+                                                <%if(file.name.substr(file.name.length-5)===".xlsx" || file.name.substr(file.name.length-4)===".xls"){%>
+                                                    <span>
+                                                        EXCEL
+                                                    </span>
+
+                                                    <%}else if(file.name.substr(file.name.length-5)===".docx" || file.name.substr(file.name.length-4)===".doc"){%>
+                                                        <span>
+                                                            DOC
+                                                        </span>
+                                                   
+                                                    <%}else if(file.type.substr(0,4)==="text"){%>
+                                                        <span>
+                                                            TEXT
+                                                        </span>
+                                                    <%}else{%>
+                                                       
+                                                <span>
+                                                    <%=file.type.substr(6).toUpperCase()%>
+                                                </span>
+                                                <%}%>
+                                                -
+                                                <span>
+                                                    <%=Math.round(file.size/1000)>=1000?Math.round(file.size/1000000)+' mB':Math.round(file.size/1000)+' kB'%>
+                                                </span>
+                                                
+                                            </div>
+                                            <div class="font-small italic font-faint">
+                                                <%=getDateAndTime(chat.createdAt)%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%})%>
 
                             <%}else if(chat.type==="extras"){%>
                             <div class="bg-">
@@ -824,8 +955,6 @@
                 </div>
             </div>
             <%}%>
-                                   
-
     </main>
     
     <%- include('./partials/footer.ejs') %>

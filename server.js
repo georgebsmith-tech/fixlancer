@@ -486,7 +486,7 @@ app.get("/uploads/:fileName", multerUpload.single("file"), (req, res) => {
     const fileName = req.params.fileName
     res.download(path.join(__dirname, "uploads", fileName), fileName, (err) => {
         if (err) {
-            res.json(err)
+            console.log(err)
         } else {
             console.log("File downloaded")
         }

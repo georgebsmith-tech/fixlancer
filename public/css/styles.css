@@ -890,8 +890,24 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
 }
 
+.padd5 {
+  padding: 5px !important;
+}
+
+.fit-content {
+  width: fit-content !important;
+}
+
+.bg-light-grey {
+  background-color: #eee !important;
+}
+
 .text-orange {
   color: #f27415;
+}
+
+.bg-dark-grey {
+  background-color: rgba(30, 38, 47, 0.8);
 }
 
 .text-white {
@@ -925,6 +941,14 @@ h1, h2, h3, h4, h5, h6 {
 .border-smooth {
   border-radius: 6px;
   border: 1px solid #ddd;
+}
+
+.delivery-download-pix {
+  right: 10px;
+}
+
+.width80 {
+  width: 80% !important;
 }
 
 .tags {
@@ -1704,8 +1728,8 @@ button.header-top-btn, a.header-top-btn {
 }
 
 .padd10-sides {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
 }
 
 .bg-dark-red {
