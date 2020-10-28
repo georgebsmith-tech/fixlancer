@@ -14,7 +14,7 @@
 </head>
 
 <body>
-
+   <%- include('./partials/header.ejs') %>
     <div class="confirm-dispute-modal the-modal hide">
         <div class="bg-white border-smooth full-width" style="height: fit-content;max-width: 500px;">
             <header class="flex-between bg-heading padd10">
@@ -228,7 +228,7 @@
 
 
 
-    <%- include('./partials/header.ejs') %>
+ 
 
     <main class="main" id="main">
 
@@ -469,8 +469,28 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                
+                                                        
+                                                    <%}else if(file.type.substr(0,5)==="audio"){%>
+                                                        <div class="font16">
+                                                            <div class="flex-between">
+                                                                <div class="flex">
+                                                                    <i class="fa fa-file-audio-o font28 margin10-right" aria-hidden="true"></i>
+                                                                    <span>
+                                                                        <%=file.name%>
+                                                                    </span> 
+                                                                </div>
+                                                                <div>
+                                                                    <a href="/api/download/<%=file.name%>" class="download-icon-holder">
+                                                                        <i class="fa fa-download font16  pointer padd10 download-icon " aria-hidden="true"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
                                                 <%}else if(file.type.substr(0,5)==="image"){%>
-                                                    <div class="relative">
+                                                    <div class="relative delivery-image-wrapper">
                                              <img src="/uploads/<%=file.name%>" alt="image of <%=file.name%>">
                                              <a href="/api/download/<%=file.name%>" class="download-icon-holder absolute delivery-download-pix">
                                                 <i class="fa fa-download font16  pointer padd10 download-icon " aria-hidden="true"></i>
@@ -492,6 +512,22 @@
                                                             </a>
                                                         </div>
                                                     </div>
+                                                    <%}else if(file.name.substr(file.name.length-4)===".pdf"){%>
+                                                        <div class="flex-between">
+                                                            <div class="flex">
+                                                                <i class="fa fa-file-pdf-o font28 margin10-right" aria-hidden="true"></i>
+                                                               
+                                                                <span class="font16">
+                                                                    <%=file.name%>
+                                                                </span> 
+                                                            </div>
+                                                            <div>
+                                                                <a href="/api/download/<%=file.name%>" class="download-icon-holder">
+                                                                    <i class="fa fa-download font16  pointer padd10 download-icon" aria-hidden="true"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
                                                     <%}else if(file.name.substr(file.name.length-5)===".docx"||file.name.substr(file.name.length-4)===".doc"){%>
                                                         <div class="flex-between">
                                                             <div class="flex">
@@ -518,8 +554,14 @@
                                                     <span>
                                                         EXCEL
                                                     </span>
+                                                    <%}else if(file.name.substr(file.name.length-4)===".pdf"){%>
+                                                        <span>
+                                                            PDF
+                                                        </span>
 
                                                     <%}else if(file.name.substr(file.name.length-5)===".docx" || file.name.substr(file.name.length-4)===".doc"){%>
+
+                                                       
                                                         <span>
                                                             DOC
                                                         </span>
