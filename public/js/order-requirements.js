@@ -1,15 +1,15 @@
 (function () {
-    const attachHolder = document.querySelector(".attach-requirement")
-    const hiddenAttachment = document.querySelector(".hidden-attachment")
-    const fileNameHolder = document.querySelector(".file-name")
-    const startOrderBtn = document.querySelector(".start-order")
-    const requirementsInput = document.querySelector("#requirements")
-    const orderID = document.querySelector(".order-id").value
+    var attachHolder = document.querySelector(".attach-requirement")
+    var hiddenAttachment = document.querySelector(".hidden-attachment")
+    var fileNameHolder = document.querySelector(".file-name")
+    var startOrderBtn = document.querySelector(".start-order")
+    var requirementsInput = document.querySelector("#requirements")
+    var orderID = document.querySelector(".order-id").value
 
 
 
-    let file = ""
-    let fileName = ""
+    var file = ""
+    var fileName = ""
 
     attachHolder.addEventListener("click", function (e) {
         hiddenAttachment.click()
@@ -29,13 +29,13 @@
     });
 
     startOrderBtn.addEventListener("click", function () {
-        const requirements = requirementsInput.value.trim()
+        var requirements = requirementsInput.value.trim()
         sendRequirements(requirements)
 
     })
 
-    const sendRequirements = (requirements) => {
-        const formData = new FormData()
+    var sendRequirements = (requirements) => {
+        var formData = new FormData()
         formData.append("requirements", requirements)
         formData.append("order_id", orderID)
         formData.append("file", hiddenAttachment.files[0])

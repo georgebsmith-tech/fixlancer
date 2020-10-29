@@ -2,13 +2,13 @@
     const loginBtn = document.getElementById('login-btn');
     const username = document.getElementById('username');
     const password = document.getElementById('password');
-    const spinnerHolder= document.querySelector(".lds-ring")
-    loginBtn.addEventListener('click', function(e){
-        document.querySelector(".login-error").classList.add("hide")
+    const spinnerHolder = document.querySelector(".lds-ring")
+    loginBtn.addEventListener('click', function (e) {
         spinnerHolder.classList.remove("hide")
-        this.parentElement.classList.remove("margin20-top")
-        validateLogin();
-        console.log(username.value);
+        document.querySelector(".error").classList.add("hide")
+        // this.parentElement.classList.remove("margin20-top")
+        // validateLogin();
+
     })
 
     function validateLogin() {
@@ -21,25 +21,24 @@
             headers: {
                 'Content-Type': "application/json"
             }
-        }).then(response => {
-            console.log(response)
-            if (response.status === 200)
-                window.location.href = "/dashboard"
-            return response.json();
-
-
-
-
-
-        }).then(data => {
-            console.log(data)
-
-
-        }).catch(error => {
-            console.log("Error")
-            // document.querySelector(".login-error").classList.remove("hide")
-            console.log(err)
         })
+        // .then(response => {
+        //     // console.log(response)
+        //     // if (response.status === 200)
+        //     //     // window.location.href = "/dashboard"
+        //     //     console.log(response.json())
+        //     // return response.json();
+
+        // })
+        // .then(data => {
+        // console.log(data)
+
+
+        // )catch (err => {
+        //         // console.log("Error")
+        //         // document.querySelector(".login-error").classList.remove("hide")
+        //         console.log(err)
+        //     })
     }
 
 })()

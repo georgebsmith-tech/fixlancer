@@ -54,19 +54,19 @@
     if (deliveryFilesHolder)
         deliveryFilesHolder.addEventListener("input", function () {
             fileuploadError.classList.add("hide")
-            for (let file of this.files) {
-                const li = document.createElement("li")
+            for (var file of this.files) {
+                var li = document.createElement("li")
                 li.textContent = file.name
                 deliveryFileList.appendChild(li)
             }
         })
 
-    const sendDelivery = get(".send-delivery")
-    let isValidDelivery = true;
+    var sendDelivery = get(".send-delivery")
+    var isValidDelivery = true;
     if (sendDelivery)
         sendDelivery.addEventListener("click", function () {
-            const message = deliveryMessage.value.trim()
-            const files = deliveryFilesHolder.files
+            var message = deliveryMessage.value.trim()
+            var files = deliveryFilesHolder.files
             if (files.length === 0) {
                 fileuploadError.classList.remove("hide")
                 isValidDelivery = false
@@ -88,20 +88,20 @@
             deliveryMessageError.classList.add("hide")
             fileuploadError.classList.add("hide")
 
-            const ajax = new XMLHttpRequest()
-            let formData = new FormData()
+            var ajax = new XMLHttpRequest()
+            var formData = new FormData()
             formData.append("message", message)
             formData.append("from", sender)
             formData.append("to", receiver)
             formData.append("order_id", orderID)
-            for (let file of files) {
+            for (var file of files) {
                 formData.append("files", file)
             }
             ajax.open("post", "/api/orderchats/uploads")
             get(".upload-progress").classList.remove("hide")
             ajax.upload.onprogress = function (e) {
                 console.log(`loaded ${e.loaded / e.total * 100} of 100`)
-                const per = Math.round(e.loaded / e.total * 100)
+                var per = Math.round(e.loaded / e.total * 100)
                 get("#progressBar").classList.remove("hide")
                 get("#progressBar").value = per
 
@@ -122,17 +122,17 @@
     function get(element) {
         return document.querySelector(element)
     }
-    const fileName = document.querySelector(".file-name")
-    let attachedFile = ''
-    let attachedFileName = ""
-    let type = ""
+    var fileName = document.querySelector(".file-name")
+    var attachedFile = ''
+    var attachedFileName = ""
+    var type = ""
     attachBTN.addEventListener("click", function () {
         hiddenAtachment.click()
     })
     hiddenAtachment.addEventListener("input", function (e) {
         fileName.textContent = hiddenAtachment.files[0].name
         fileNameHolder.classList.remove("invisible")
-        const reader = new FileReader()
+        var reader = new FileReader()
         reader.readAsDataURL(hiddenAtachment.files[0])
         reader.onload = () => {
             attachedFile = reader.result
@@ -169,20 +169,20 @@
     }
 
     async function releaaseMilestone(per) {
-        const body = JSON.stringify({
+        var body = JSON.stringify({
             percent: per,
             seller: receiver,
             order_id: orderID
         })
 
-        const response = await fetch(`/api/milestones`, {
+        var response = await fetch(`/api/milestones`, {
             method: "post",
             body,
             headers: {
                 "Content-Type": "application/json"
             }
         })
-        const data = await response.json()
+        var data = await response.json()
         console.log(data)
         return data
 
@@ -190,8 +190,8 @@
 
     if (milestoneBTN)
         milestoneBTN.addEventListener("click", function () {
-            const milestonePercent = milestoneInput.value.trim() * 1
-            const isValid = isValidPercent(milestonePercent)
+            var milestonePercent = milestoneInput.value.trim() * 1
+            var isValid = isValidPercent(milestonePercent)
             if (!isValid)
                 return
             releaaseMilestone(milestonePercent)
